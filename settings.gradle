@@ -11,6 +11,7 @@ dependencyResolutionManagement {
         google()
         mavenCentral()
         maven { url 'https://repo.hypixel.net/repository/Hypixel/' }
+        //n
     }
 }
 rootProject.name = "HyTracker"
