@@ -2,8 +2,13 @@ plugins {
     id 'com.android.application'
 }
 
+
 android {
     compileSdk 32
+
+    packagingOptions {
+        resources.excludes.add("META-INF/*")
+    }
 
     defaultConfig {
         applicationId "com.example.hytracker"
