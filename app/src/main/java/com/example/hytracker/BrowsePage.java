@@ -12,6 +12,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.collection.CircularArray;
+import androidx.recyclerview.widget.RecyclerView;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -25,6 +26,7 @@ public class BrowsePage extends AppCompatActivity {
 
     ArrayList<AuctionItem> auctionItems = new ArrayList<>();
     public static ArrayList<String> queryWords;
+    public static ArrayList<String> itemInfo;
     StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
 
 
@@ -36,6 +38,9 @@ public class BrowsePage extends AppCompatActivity {
 
         EditText query = findViewById(R.id.itemQuery);
         Button enterButton = findViewById(R.id.itemSearchButton);
+        RecyclerView list = findViewById(R.id.itemList);
+
+
 
         Log.d("words", "HI");
         enterButton.setOnClickListener(new View.OnClickListener() {
@@ -62,9 +67,9 @@ public class BrowsePage extends AppCompatActivity {
 
                     for (int i = 0; i < Math.min(auctionItems.size(), 25); i++) {
                         AuctionItem a = auctionItems.get(i);
-
                     }
 
+                    Log.d("words", itemInfo.toString());
                 } catch (JSONException | InterruptedException e) {
                     Log.d("words", "Shit went down" + e);
                 }
