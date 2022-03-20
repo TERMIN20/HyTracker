@@ -8,12 +8,11 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import java.util.UUID;
-
 public class MainActivity extends AppCompatActivity {
+
+    static String apiKey = "8ec31ca6-3ece-4ce5-afb1-1bc764ef702a";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,29 +20,38 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         EditText username = findViewById(R.id.editTextTextEmailAddress);
+        EditText password = findViewById(R.id.editTextTextPassword);
+
+
 
         Button loginbutton = findViewById(R.id.Login);
 
 
         loginbutton.setOnClickListener(new View.OnClickListener(){
             @Override
+
             public void onClick(View view)
             {
-                if(username.getText().toString().equals("Fart"))
+                OpenMenu();
+                if(username.getText().toString().equals("Username") && password.getText().toString().equals("Password"))
                 {
-                    Toast.makeText(MainActivity.this, "LOGGED", Toast.LENGTH_SHORT).show();
-                    openBrowse();
+                    Toast.makeText(MainActivity.this, "LOGGED IN", Toast.LENGTH_SHORT).show();
+                    OpenMenu();
                 }
                 else{
-                    Toast.makeText(MainActivity.this, "UNLOGGED", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MainActivity.this, "DOESN'T WORK", Toast.LENGTH_SHORT).show();
                 }
             }
         }
         );
     }
 
-    public void openBrowse(){
-        Intent openIntent = new Intent(this, BrowsePage.class);
+    public static String getKey(){
+        return apiKey;
+    }
+
+    public void OpenMenu(){
+        Intent openIntent = new Intent(this, MenuPage.class);
         startActivity(openIntent);
     }
 }
