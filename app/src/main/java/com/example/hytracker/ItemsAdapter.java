@@ -17,6 +17,7 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.ItemsViewHol
 
     Context context;
     ArrayList<AuctionItem> auctionItemArrayList;
+    RequestAPI requestAPI = new RequestAPI();
 
     public ItemsAdapter(Context context, ArrayList<AuctionItem> auctionItemArrayList) {
         this.context = context;
@@ -41,7 +42,7 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.ItemsViewHol
         AuctionItem auctionItem = auctionItemArrayList.get(position);
 
         holder.itemName.setText(auctionItem.getItemName());
-        holder.itemInfo.setText("Starting Bid: " + auctionItem.getStartingBid() + "     Highest Bid: " + auctionItem.getHighestBid());
+        holder.itemInfo.setText("Auctioneer: " + requestAPI.getName(auctionItem.getAuctioneer())  + "     Price: " + auctionItem.getPrice());
 
     }
 
@@ -59,8 +60,8 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.ItemsViewHol
         {
             super(itemView);
             itemView.setOnClickListener(this);
-            itemName = itemView.findViewById(R.id.itemText);
-            itemInfo = itemView.findViewById(R.id.itemInfo);
+            itemName = itemView.findViewById(R.id.itemName);
+            itemInfo = itemView.findViewById(R.id.itemText);
 
         }
         @Override

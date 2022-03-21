@@ -2,6 +2,7 @@ package com.example.hytracker;
 
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.util.Log;
@@ -26,7 +27,8 @@ import java.util.Collections;
 
 public class BrowsePage extends AppCompatActivity {
 
-    ArrayList<AuctionItem> auctionItems = new ArrayList<>();
+
+    public static ArrayList<AuctionItem> auctionItems = new ArrayList<>();
     public static ArrayList<String> queryWords;
     StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
 
@@ -39,12 +41,7 @@ public class BrowsePage extends AppCompatActivity {
 
         EditText query = findViewById(R.id.itemQuery);
         Button enterButton = findViewById(R.id.itemSearchButton);
-        RecyclerView recyclerView = findViewById(R.id.recyclerView);
-        ItemsAdapter itemsAdapter;
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.setHasFixedSize(true);
-        itemsAdapter = new ItemsAdapter(this, auctionItems);
-        recyclerView.setAdapter(itemsAdapter);
+
 
         Context context = this;
 
@@ -72,12 +69,10 @@ public class BrowsePage extends AppCompatActivity {
 
                     addPage(o);
                     addPages(pages);
-                    itemsAdapter.notifyDataSetChanged();
-                    Log.d("words", " " + auctionItems.size());
-                    //Log.d("words", " " + auctionItems.get(0).toString());
 
 
-
+                    Log.d("words", "Array Size: " + auctionItems.size());
+                    OpenResultsPage();
 
                 } catch (JSONException | InterruptedException e) {
                     Log.d("words", "Shit went down" + e);
@@ -87,6 +82,16 @@ public class BrowsePage extends AppCompatActivity {
 
 
 
+    }
+
+    public ArrayList<AuctionItem> getAuctionItems() {
+        return auctionItems;
+    }
+
+    public void OpenResultsPage()
+    {
+        Intent openIntent = new Intent(this, ResultsPage.class);
+        startActivity(openIntent);
     }
 
     private void addPages(int pages) throws InterruptedException {
@@ -122,8 +127,6 @@ public class BrowsePage extends AppCompatActivity {
             AuctionItem a = new AuctionItem(arr.getJSONObject(i));
             if (a.contains(queryWords)) {
                 auctionItems.add(a);
-                Log.d("words", a.toString());
-                Log.d("words", "gets here too");
             }
         }
     }

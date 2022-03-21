@@ -26,6 +26,9 @@
         <activity
             android:name=".MenuPage" android:exported="true">
         </activity>
+        <activity
+            android:name=".ResultsPage" android:exported="true">
+        </activity>
 
 
     </application>

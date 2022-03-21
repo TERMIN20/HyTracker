@@ -16,6 +16,9 @@ public class AuctionItem {
     private String itemLore = " ";
     private long startingBid = 0;
     private long highestBid = 0;
+    private long price = 0;
+
+
 
 
     public AuctionItem(JSONObject jsonObject) {
@@ -26,6 +29,7 @@ public class AuctionItem {
             auctioneer = jsonObject.getString("auctioneer");
             startingBid = jsonObject.getLong("starting_bid");
             highestBid = jsonObject.getLong("highest_bid_amount");
+            price = Math.min(startingBid, highestBid);
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -49,6 +53,10 @@ public class AuctionItem {
 
     public String getItemName() {
         return itemName;
+    }
+
+    public long getPrice() {
+        return price;
     }
 
     public String getAuctioneer() {
