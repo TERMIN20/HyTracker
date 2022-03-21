@@ -1,6 +1,7 @@
 package com.example.hytracker;
 
 
+import android.content.Context;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.util.Log;
@@ -12,6 +13,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.collection.CircularArray;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import org.json.JSONArray;
@@ -26,7 +28,6 @@ public class BrowsePage extends AppCompatActivity {
 
     ArrayList<AuctionItem> auctionItems = new ArrayList<>();
     public static ArrayList<String> queryWords;
-    public static ArrayList<String> itemInfo;
     StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
 
 
@@ -38,15 +39,22 @@ public class BrowsePage extends AppCompatActivity {
 
         EditText query = findViewById(R.id.itemQuery);
         Button enterButton = findViewById(R.id.itemSearchButton);
-        RecyclerView list = findViewById(R.id.itemList);
+        RecyclerView recyclerView = findViewById(R.id.recyclerView);
+        ItemsAdapter itemsAdapter;
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setHasFixedSize(true);
+        itemsAdapter = new ItemsAdapter(this, auctionItems);
+        recyclerView.setAdapter(itemsAdapter);
 
+        Context context = this;
 
+        Log.d("words", "does stuff");
 
         Log.d("words", "HI");
         enterButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                queryWords = new ArrayList<>(Arrays.asList(query.getText().toString().split(" ")));
+                setQuery(query.getText().toString());
                 Log.d("words", queryWords.toString());
                 try {
                     Log.d("words", "Code Block Executes");
@@ -59,17 +67,18 @@ public class BrowsePage extends AppCompatActivity {
                     //Log.d("words", "ALL HERE?? ");
                     Log.d("words", "total pages:" + pages);
                     auctionItems.clear();
-                    pages = Math.min(pages, 25);
+                    pages = Math.min(pages, 10);
                     Log.d("words", "min pages: " + pages);
 
                     addPage(o);
                     addPages(pages);
+                    itemsAdapter.notifyDataSetChanged();
+                    Log.d("words", " " + auctionItems.size());
+                    //Log.d("words", " " + auctionItems.get(0).toString());
 
-                    for (int i = 0; i < Math.min(auctionItems.size(), 25); i++) {
-                        AuctionItem a = auctionItems.get(i);
-                    }
 
-                    Log.d("words", itemInfo.toString());
+
+
                 } catch (JSONException | InterruptedException e) {
                     Log.d("words", "Shit went down" + e);
                 }
@@ -81,6 +90,7 @@ public class BrowsePage extends AppCompatActivity {
     }
 
     private void addPages(int pages) throws InterruptedException {
+
         int threadCount = Math.min(pages - 1, 4);
         CircularArray<Thread> requestThreads = new CircularArray<>(threadCount);
         for (int i = 1; i < pages; i++) {
@@ -112,8 +122,44 @@ public class BrowsePage extends AppCompatActivity {
             AuctionItem a = new AuctionItem(arr.getJSONObject(i));
             if (a.contains(queryWords)) {
                 auctionItems.add(a);
+                Log.d("words", a.toString());
+                Log.d("words", "gets here too");
             }
         }
+    }
+
+    public void setQuery(String query) {
+        queryWords = new ArrayList<>();
+        StringBuilder queryWord = new StringBuilder();
+        boolean locked = false;
+        for (char c : query.toLowerCase().toCharArray()) {
+            if (locked)
+                if (c == '"') {
+                    if (queryWord.length() > 0)
+                        queryWords.add(queryWord.toString());
+                    queryWord = new StringBuilder();
+                    locked = false;
+                } else
+                    queryWord.append(c);
+            else {
+                if (c == '"') {
+                    if (queryWord.length() > 0)
+                        queryWords.add(queryWord.toString());
+                    queryWord = new StringBuilder();
+                    locked = true;
+                } else if (c == ' ') {
+                    if (queryWord.length() > 0)
+                        queryWords.add(queryWord.toString());
+                    queryWord = new StringBuilder();
+                } else
+                    queryWord.append(c);
+            }
+        }
+        if (queryWord.length() > 0)
+            queryWords.add(queryWord.toString());
+        if (queryWords.size() < 1)
+            queryWords.add("");
+
     }
 
 }

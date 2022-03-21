@@ -8,7 +8,7 @@
     android:layout_marginHorizontal="8dp">
 
     <TextView
-        android:id="@+id/itemText"
+        android:id="@+id/itemName"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -19,7 +19,7 @@
         app:layout_constraintTop_toTopOf="parent"></TextView>
 
     <TextView
-        android:id="@+id/itemPrice"
+        android:id="@+id/itemInfo"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -27,7 +27,7 @@
         android:textColor="@color/black"
         android:textSize="16sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/itemText"></TextView>
+        app:layout_constraintTop_toBottomOf="@id/itemName"></TextView>
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/button"
