@@ -66,13 +66,4 @@ public class AuctionItem {
     public String getItemLore() {
         return itemLore;
     }
-
-    public long getStartingBid() {
-        return startingBid;
-    }
-
-    public long getHighestBid() {
-        return highestBid;
-    }
-
 }

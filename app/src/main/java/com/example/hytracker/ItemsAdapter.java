@@ -61,7 +61,7 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.ItemsViewHol
             super(itemView);
             itemView.setOnClickListener(this);
             itemName = itemView.findViewById(R.id.itemName);
-            itemInfo = itemView.findViewById(R.id.itemText);
+            itemInfo = itemView.findViewById(R.id.itemInfo);
 
         }
         @Override
