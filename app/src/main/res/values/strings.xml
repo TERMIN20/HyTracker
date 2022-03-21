@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">HyTracker</string>
+    <string name="awesome_hyperion">Awesome Hyperion</string>
+    <string name="starting_bid_6500_highest_bid_0">Starting Bid: 6500 Highest Bid: 0</string>
 </resources>
