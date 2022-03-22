@@ -9,21 +9,16 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.collection.CircularArray;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
 
 public class BrowsePage extends AppCompatActivity {
 
@@ -57,10 +52,13 @@ public class BrowsePage extends AppCompatActivity {
                     Log.d("words", "Code Block Executes");
                     JSONObject o = new RequestAPI().getAuctionsPage(0);
                     Log.d("words", "JSONObject Created");
-                    int pages = o.getInt("totalPages");
-                    if (!o.getBoolean("success") && o.getString("cause").contains("Invalid API key"))
-                        Log.d("errorLOL", "Invalid API Key");
 
+                    if (!o.getBoolean("success")) {
+                        Toast.makeText(BrowsePage.this, "Invalid API Key, Re-Enter", Toast.LENGTH_SHORT).show();
+                        OpenAPIPage();
+                    }
+
+                    int pages = o.getInt("totalPages");
                     //Log.d("words", "ALL HERE?? ");
                     Log.d("words", "total pages:" + pages);
                     auctionItems.clear();
@@ -91,6 +89,11 @@ public class BrowsePage extends AppCompatActivity {
     public void OpenResultsPage()
     {
         Intent openIntent = new Intent(this, ResultsPage.class);
+        startActivity(openIntent);
+    }
+    public void OpenAPIPage()
+    {
+        Intent openIntent = new Intent(this, APIEnterPage.class);
         startActivity(openIntent);
     }
 
@@ -162,6 +165,8 @@ public class BrowsePage extends AppCompatActivity {
             queryWords.add(queryWord.toString());
         if (queryWords.size() < 1)
             queryWords.add("");
+
+        Log.d("words", queryWords.toString());
 
     }
 

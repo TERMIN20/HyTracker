@@ -17,7 +17,7 @@ public class MenuPage extends AppCompatActivity {
         setContentView(R.layout.menu_layout);
 
         Button browsebutton = findViewById(R.id.browseButton);
-        //Button trackersbutton = findViewById(R.id.trackersButton);
+        Button apibutton = findViewById(R.id.APIButton);
 
         browsebutton.setOnClickListener(new View.OnClickListener(){
             public void onClick(View view){
@@ -25,11 +25,25 @@ public class MenuPage extends AppCompatActivity {
             }
         }
         );
+        apibutton.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View view){
+                OpenAPIPage();
+            }
+        }
+        );
+
+
     }
 
     public void OpenBrowsePage()
     {
         Intent openIntent = new Intent(this, BrowsePage.class);
+        startActivity(openIntent);
+    }
+
+    public void OpenAPIPage()
+    {
+        Intent openIntent = new Intent(this, APIEnterPage.class);
         startActivity(openIntent);
     }
 

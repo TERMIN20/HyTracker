@@ -29,6 +29,9 @@
         <activity
             android:name=".ResultsPage" android:exported="true">
         </activity>
+        <activity
+            android:name=".APIEnterPage" android:exported="true">
+        </activity>
 
 
     </application>

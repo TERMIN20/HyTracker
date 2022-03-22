@@ -1,6 +1,8 @@
 package com.example.hytracker;
 
 
+import android.util.Log;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -20,11 +22,11 @@ public class RequestAPI {
 
     public RequestAPI()
     {
-        apiKey = MainActivity.getKey();
+        apiKey = APIEnterPage.getApiKey();
     }
 
     public JSONObject getAuctionsPage(int page) {
-        return getJsonObjectFromApi("https://api.hypixel.net/skyblock/auctions?key=" + apiKey + "&page=" + page);
+        return getJsonObjectFromApi("https://api.hypixel.net/skyblock/auctions" + apiKey + "page=" + page);
     }
 
     public String getName(String uuid) {

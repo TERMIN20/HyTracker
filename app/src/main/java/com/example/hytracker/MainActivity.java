@@ -12,15 +12,16 @@ import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
-    static String apiKey = "8ec31ca6-3ece-4ce5-afb1-1bc764ef702a";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        EditText username = findViewById(R.id.editTextTextEmailAddress);
+        EditText username = findViewById(R.id.editTextAPI);
         EditText password = findViewById(R.id.editTextTextPassword);
+        //EditText APIKey = findViewById(R.id.editTextAPIKey);
 
 
 
@@ -33,22 +34,20 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view)
             {
                 OpenMenu();
+                //apiKey = APIKey.getText().toString();
                 if(username.getText().toString().equals("Username") && password.getText().toString().equals("Password"))
                 {
                     Toast.makeText(MainActivity.this, "LOGGED IN", Toast.LENGTH_SHORT).show();
                     OpenMenu();
                 }
                 else{
-                    Toast.makeText(MainActivity.this, "DOESN'T WORK", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MainActivity.this, "Please Retry", Toast.LENGTH_SHORT).show();
                 }
             }
         }
         );
     }
 
-    public static String getKey(){
-        return apiKey;
-    }
 
     public void OpenMenu(){
         Intent openIntent = new Intent(this, MenuPage.class);
